@@ -1,0 +1,21 @@
+{
+  "name": "gramin-healthcare",
+  "description": "Doctor finding system for rural and village communities",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "backend": "python app.py",
+    "install-deps": "pip install -r requirements.txt",
+    "test-ml": "python ml_model.py"
+  },
+  "keywords": [
+    "healthcare",
+    "doctor",
+    "rural-health",
+    "python",
+    "fastapi"
+  ],
+  "author": "",
+  "license": "MIT"
+}
