@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramin Healthcare - Find Doctors in Villages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>Gramin Healthcare</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#landing" class="nav-link active" onclick="showSection('landing')">Home</a>
+                <a href="#search" class="nav-link" onclick="showSection('search')">Find Doctors</a>
+                <a href="#recommend" class="nav-link" onclick="showSection('recommend')">AI Recommend</a>
+                <a href="#bookings" class="nav-link" onclick="showSection('bookings')">My Bookings</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <button class="btn btn-secondary" onclick="showAddDoctorModal()">Add Doctor</button>
+                <button class="btn btn-primary" onclick="showAuthModal('login')">Login</button>
+                <button class="btn btn-secondary" onclick="showAuthModal('register')">Register</button>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span class="user-name" id="userName">User</span>
+                <button class="btn btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing Section -->
+    <section id="landing" class="section active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-pattern"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Healthcare for Every Village</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Find specialized doctors near you. Book appointments easily. Get token numbers instantly.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalDoctors">10+</div>
+                        <div class="stat-label">Doctors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalVillages">8</div>
+                        <div class="stat-label">Villages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <button class="btn btn-hero btn-primary" onclick="showSection('search')">
+                        <i class="fas fa-search"></i> Find a Doctor
+                    </button>
+                    <button class="btn btn-hero btn-secondary" onclick="showSection('recommend')">
+                        <i class="fas fa-robot"></i> AI Recommendation
+                    </button>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <div class="floating-icon icon-1"><i class="fas fa-stethoscope"></i></div>
+                <div class="floating-icon icon-2"><i class="fas fa-user-md"></i></div>
+                <div class="floating-icon icon-3"><i class="fas fa-ambulance"></i></div>
+                <div class="floating-icon icon-4"><i class="fas fa-pills"></i></div>
+                <div class="floating-icon icon-5"><i class="fas fa-heart"></i></div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-card glass-card">
+                <div class="feature-icon">
+                    <i class="fas fa-search-location"></i>
+                </div>
+                <h3>Find by Location</h3>
+                <p>Search doctors in your village or nearby areas</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>Specialist Doctors</h3>
+                <p>Find specialists for any health condition</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Easy Booking</h3>
+                <p>Book appointments in just a few clicks</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="feature-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h3>Instant Token</h3>
+                <p>Get your token number immediately after booking</p>
+            </div>
+        </div>
+
+        <!-- Specializations Section -->
+        <div class="specializations-section">
+            <h2 class="section-title">Our Specialists</h2>
+            <div class="specialization-grid">
+                <div class="spec-card" onclick="searchBySpecialization('General Physician')">
+                    <div class="spec-icon"><i class="fas fa-user-md"></i></div>
+                    <span>General Physician</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Pediatrician')">
+                    <div class="spec-icon"><i class="fas fa-baby"></i></div>
+                    <span>Pediatrician</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Cardiologist')">
+                    <div class="spec-icon"><i class="fas fa-heartbeat"></i></div>
+                    <span>Cardiologist</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Orthopedic')">
+                    <div class="spec-icon"><i class="fas fa-bone"></i></div>
+                    <span>Orthopedic</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Dermatologist')">
+                    <div class="spec-icon"><i class="fas fa-allergies"></i></div>
+                    <span>Dermatologist</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Gynecologist')">
+                    <div class="spec-icon"><i class="fas fa-female"></i></div>
+                    <span>Gynecologist</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Dentist')">
+                    <div class="spec-icon"><i class="fas fa-tooth"></i></div>
+                    <span>Dentist</span>
+                </div>
+                <div class="spec-card" onclick="searchBySpecialization('Ayurveda')">
+                    <div class="spec-icon"><i class="fas fa-leaf"></i></div>
+                    <span>Ayurveda</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="how-it-works">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Register</h3>
+                        <p>Create your free account</p>
+                    </div>
+                </div>
+                <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Search Doctor</h3>
+                        <p>Find by specialization & location</p>
+                    </div>
+                </div>
+                <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Book Appointment</h3>
+                        <p>Select date & book your slot</p>
+                    </div>
+                </div>
+                <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Get Token</h3>
+                        <p>Receive token instantly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Doctors Section -->
+    <section id="search" class="section">
+        <div class="search-container">
+            <h2 class="section-title">Find a Doctor</h2>
+            
+            <!-- Search Filters -->
+            <div class="search-filters glass-card">
+                <div class="filter-group">
+                    <label><i class="fas fa-stethoscope"></i> Specialization</label>
+                    <select id="specializationFilter" onchange="filterDoctors()">
+                        <option value="">All Specializations</option>
+                        <option value="General Physician">General Physician</option>
+                        <option value="Pediatrician">Pediatrician</option>
+                        <option value="Cardiologist">Cardiologist</option>
+                        <option value="Orthopedic">Orthopedic</option>
+                        <option value="Dermatologist">Dermatologist</option>
+                        <option value="Gynecologist">Gynecologist</option>
+                        <option value="Dentist">Dentist</option>
+                        <option value="Ayurveda">Ayurveda</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                    <select id="districtFilter" onchange="filterDoctors()">
+                        <option value="">All Districts</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-home"></i> Village</label>
+                    <select id="locationFilter" onchange="filterDoctors()">
+                        <option value="">All Villages</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="filterDoctors()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+
+            <!-- Doctors Grid -->
+            <div class="doctors-grid" id="doctorsGrid">
+                <!-- Doctors will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Recommendation Section -->
+    <section id="recommend" class="section">
+        <div class="recommend-container">
+            <h2 class="section-title">
+                <i class="fas fa-robot"></i> AI Doctor Recommendation
+            </h2>
+            <p class="section-subtitle">Describe your symptoms and let AI find the right specialist</p>
+            
+            <div class="ai-search glass-card">
+                <textarea id="symptomsInput" placeholder="Describe your symptoms here... (e.g., 'I have fever and cold', 'My child has cough', 'Chest pain and shortness of breath')"></textarea>
+                <div class="ai-options">
+                    <select id="locationSelectAI">
+                        <option value="">Any Location</option>
+                        <option value="Rampur Village">Rampur Village</option>
+                        <option value="Shivpur Village">Shivpur Village</option>
+                        <option value="Lakshmipur Village">Lakshmipur Village</option>
+                        <option value="Ganeshpur Village">Ganeshpur Village</option>
+                        <option value="Krishnapur Village">Krishnapur Village</option>
+                        <option value="Suryapur Village">Suryapur Village</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="getAIRecommendation()">
+                        <i class="fas fa-magic"></i> Recommend Doctors
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Results -->
+            <div class="ai-results" id="aiResults"></div>
+        </div>
+    </section>
+
+    <!-- My Bookings Section -->
+    <section id="bookings" class="section">
+        <div class="bookings-container">
+            <h2 class="section-title">My Bookings</h2>
+            
+            <div id="noBookings" class="no-bookings glass-card" style="display: none;">
+                <i class="fas fa-calendar-times"></i>
+                <h3>No Bookings Yet</h3>
+                <p>You haven't booked any appointments yet. Start by finding a doctor!</p>
+                <button class="btn btn-primary" onclick="showSection('search')">Find Doctors</button>
+            </div>
+
+            <div class="bookings-list" id="bookingsList">
+                <!-- Bookings will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h3 id="authModalTitle">Login</h3>
+                <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="registerName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="registerEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="registerPhone" required placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-birthday-cake"></i> Age</label>
+                            <input type="number" id="registerAge" required placeholder="Age">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map"></i> District</label>
+                            <input type="text" id="registerDistrict" list="registerDistrictList" required placeholder="Type or select district">
+                            <datalist id="registerDistrictList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-home"></i> Village</label>
+                            <input type="text" id="registerVillage" list="registerVillageList" required placeholder="Type or select village">
+                            <datalist id="registerVillageList"></datalist>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="registerPassword" required placeholder="Create a password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Register</button>
+                </form>
+
+                <div class="auth-switch">
+                    <span id="authSwitchText">Don't have an account?</span>
+                    <button id="authSwitchBtn" onclick="toggleAuthMode()">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content glass-card booking-modal-content">
+            <div class="modal-header">
+                <h3>Book Appointment</h3>
+                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="booking-summary" id="bookingSummary">
+                    <!-- Doctor summary will be loaded here -->
+                </div>
+                
+                <form id="bookingForm" onsubmit="handleBooking(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar"></i> Select Date</label>
+                        <input type="date" id="bookingDate" required min="" onchange="checkAvailability()">
+                    </div>
+                    
+                    <div class="availability-info" id="availabilityInfo">
+                        <!-- Seat availability will be shown here -->
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full" id="bookingBtn" disabled>
+                        <i class="fas fa-ticket-alt"></i> Book & Get Token
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Token Modal -->
+    <div class="modal" id="tokenModal">
+        <div class="modal-content token-modal glass-card">
+            <div class="token-header">
+                <i class="fas fa-check-circle"></i>
+                <h2>Booking Confirmed!</h2>
+            </div>
+            <div class="token-body">
+                <div class="token-number" id="tokenNumber">A001</div>
+                <p class="token-label">Your Token Number</p>
+                <div class="token-details" id="tokenDetails">
+                    <!-- Token details will be loaded here -->
+                </div>
+            </div>
+            <div class="token-footer">
+                <button class="btn btn-primary" onclick="closeTokenModal()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Doctor Modal -->
+    <div class="modal" id="addDoctorModal">
+        <div class="modal-content glass-card doctor-modal-content">
+            <div class="modal-header">
+                <h3>Add Doctor</h3>
+                <button class="modal-close" onclick="closeAddDoctorModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addDoctorForm" onsubmit="handleAddDoctor(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-user-md"></i> Doctor Name</label>
+                        <input type="text" id="doctorName" required placeholder="Enter doctor name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-stethoscope"></i> Specialization</label>
+                            <select id="doctorSpecialization" required>
+                                <option value="">Select specialization</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map"></i> District</label>
+                            <input type="text" id="doctorDistrict" list="doctorDistrictList" required placeholder="Type or select district">
+                            <datalist id="doctorDistrictList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                            <input type="text" id="doctorLocation" list="doctorLocationList" required placeholder="Type or select village/location">
+                            <datalist id="doctorLocationList"></datalist>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Contact Number</label>
+                            <input type="tel" id="doctorContact" required placeholder="Enter contact number">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-rupee-sign"></i> Fees</label>
+                            <input type="number" id="doctorFees" required min="0" step="0.01" placeholder="Enter fees">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-week"></i> Available Days</label>
+                        <input type="text" id="doctorDays" required placeholder="Example: Monday,Wednesday,Friday">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Start Time</label>
+                            <input type="time" id="doctorStartTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> End Time</label>
+                            <input type="time" id="doctorEndTime" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-chair"></i> Seat Capacity</label>
+                            <input type="number" id="doctorSeats" required min="1" placeholder="Seats per day">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-briefcase"></i> Experience (Years)</label>
+                            <input type="number" id="doctorExperience" required min="0" placeholder="Years of experience">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-graduation-cap"></i> Qualification</label>
+                        <input type="text" id="doctorQualification" required placeholder="Example: MBBS, MD">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-star"></i> Rating</label>
+                            <input type="number" id="doctorRating" required min="0" max="5" step="0.1" value="4.5">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-toggle-on"></i> Active</label>
+                            <select id="doctorActive">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Save Doctor</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
